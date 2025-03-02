@@ -12,8 +12,9 @@ public class Application {
 
         // 컴퓨터 숫자
         Integer[] computerNumber = getComputerNumber();
+        boolean b = false;
 
-        while () {
+        do {
             // user 숫자
             int[] userNumbers = writeNumber(computerNumber);
 
@@ -29,7 +30,7 @@ public class Application {
             }
 
             System.out.println("sb = " + sb.toString());
-        }
+        } while (b);
 
     }
 
