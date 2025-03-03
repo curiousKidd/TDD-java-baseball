@@ -12,7 +12,7 @@ public class Application {
 
         // 컴퓨터 숫자
         Integer[] computerNumber = getComputerNumber();
-        boolean b = false;
+        boolean b = true;
 
         do {
             // user 숫자
@@ -30,6 +30,11 @@ public class Application {
             }
 
             System.out.println("sb = " + sb.toString());
+
+            if (result[0] == 3) {
+                System.out.println("게임을 종료하시겠습니까?");
+                b = false;
+            }
         } while (b);
 
     }
