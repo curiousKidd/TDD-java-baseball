@@ -3,7 +3,8 @@ package baseball;
 import nextstep.utils.Console;
 import nextstep.utils.Randoms;
 
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Application {
@@ -12,6 +13,7 @@ public class Application {
 
         // 컴퓨터 숫자
         Integer[] computerNumber = getComputerNumber();
+        System.out.println("computerNumber = " + Arrays.toString(computerNumber));
         boolean b = true;
 
         do {
@@ -28,12 +30,21 @@ public class Application {
             if (result[1] != 0) {
                 sb.append(result[1]).append("볼");
             }
+            if (result[0] == 0 && result[1] == 0) {
+                sb.append("낫싱");
+            }
 
-            System.out.println("sb = " + sb.toString());
+            System.out.println(sb);
 
             if (result[0] == 3) {
                 System.out.println("게임을 종료하시겠습니까?");
-                b = false;
+                String endNumber = Console.readLine();
+
+                if (Integer.parseInt(endNumber) == 0) {
+                    b = false;
+                } else {
+                    computerNumber = getComputerNumber();
+                }
             }
         } while (b);
 
@@ -42,7 +53,7 @@ public class Application {
     // 컴퓨터 번호
     private static Integer[] getComputerNumber() {
         // 중복 방지
-        Set<Integer> set = new HashSet<Integer>(3);
+        Set<Integer> set = new LinkedHashSet<>(3);
 
         while (set.size() != 3) {
             set.add(Randoms.pickNumberInRange(1, 9));
