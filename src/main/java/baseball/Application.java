@@ -3,51 +3,66 @@ package baseball;
 import nextstep.utils.Console;
 import nextstep.utils.Randoms;
 
-import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Application {
+
+    // 게임 반복 boolean
+    static boolean b = true;
+
+    // 컴퓨터 숫자
+    static Integer[] computerNumber = getComputerNumber();
+
     public static void main(String[] args) {
         // TODO 숫자 야구 게임 구현
-
-        // 컴퓨터 숫자
-        Integer[] computerNumber = getComputerNumber();
-        System.out.println("computerNumber = " + Arrays.toString(computerNumber));
-        boolean b = true;
+        //        System.out.println("computerNumber = " + Arrays.toString(computerNumber));
 
         do {
             // user 숫자
-            int[] userNumbers = writeNumber(computerNumber);
+            int[] userNumbers = setUserWriteNumber();
 
-            int[] result = matchNumber(computerNumber, userNumbers);
+            // 유저 숫자, 컴퓨터 숫자 비교 및 카운팅
+            int[] result = getNumberMatchCount(userNumbers);
 
-            StringBuilder sb = new StringBuilder();
+            // 결과 출력
+            printText(result);
 
-            if (result[0] != 0) {
-                sb.append(result[0]).append(" 스트라이크 ");
-            }
-            if (result[1] != 0) {
-                sb.append(result[1]).append("볼");
-            }
-            if (result[0] == 0 && result[1] == 0) {
-                sb.append("낫싱");
-            }
-
-            System.out.println(sb);
-
+            // 3스트라이크일 경우 재시작 OR 끝낼것인지 체킹
             if (result[0] == 3) {
-                System.out.println("게임을 종료하시겠습니까?");
-                String endNumber = Console.readLine();
-
-                if (Integer.parseInt(endNumber) == 0) {
-                    b = false;
-                } else {
-                    computerNumber = getComputerNumber();
-                }
+                gameReloadOrEnd();
             }
         } while (b);
 
+    }
+
+    private static void gameReloadOrEnd() {
+        System.out.println("게임을 종료하시겠습니까?");
+        System.out.println("1 재시작 | 2 종료");
+        String endNumber = Console.readLine();
+
+        if (Integer.parseInt(endNumber) == 1) {
+            System.out.println("게임 끝");
+            computerNumber = getComputerNumber();
+        } else {
+            b = false;
+        }
+    }
+
+    private static void printText(int[] result) {
+        StringBuilder sb = new StringBuilder();
+
+        if (result[0] != 0) {
+            sb.append(result[0]).append("스트라이크 ");
+        }
+        if (result[1] != 0) {
+            sb.append(result[1]).append("볼");
+        }
+        if (result[0] == 0 && result[1] == 0) {
+            sb.append("낫싱");
+        }
+
+        System.out.println(sb);
     }
 
     // 컴퓨터 번호
@@ -63,7 +78,7 @@ public class Application {
     }
 
     // 사용자 번호 입력
-    private static int[] writeNumber(Integer[] computerNumber) {
+    private static int[] setUserWriteNumber() {
         System.out.println("숫자를 입력해주세요");
         String s = Console.readLine();
 
@@ -78,7 +93,7 @@ public class Application {
     }
 
     // 번호 매칭
-    private static int[] matchNumber(Integer[] computerNumber, int[] userNumbers) {
+    private static int[] getNumberMatchCount(int[] userNumbers) {
         int[] result = new int[2];
         int ball = 0, strike = 0;
 
