@@ -9,30 +9,28 @@ import java.util.Set;
 public class Application {
 
     // 게임 반복 boolean
-    static boolean b = true;
+    static boolean isGameReload = true;
 
     // 컴퓨터 숫자
     static Integer[] computerNumber = getComputerNumber();
 
     public static void main(String[] args) {
         // TODO 숫자 야구 게임 구현
-        //        System.out.println("computerNumber = " + Arrays.toString(computerNumber));
-
         do {
             // user 숫자
             int[] userNumbers = setUserWriteNumber();
 
             // 유저 숫자, 컴퓨터 숫자 비교 및 카운팅
-            int[] result = getNumberMatchCount(userNumbers);
+            GameResult gameResult = getNumberMatchCount(userNumbers);
 
             // 결과 출력
-            printText(result);
+            System.out.println(gameResult);
 
             // 3스트라이크일 경우 재시작 OR 끝낼것인지 체킹
-            if (result[0] == 3) {
+            if (gameResult.isThreeStrikes()) {
                 gameReloadOrEnd();
             }
-        } while (b);
+        } while (isGameReload);
 
     }
 
@@ -45,24 +43,8 @@ public class Application {
             System.out.println("게임 끝");
             computerNumber = getComputerNumber();
         } else {
-            b = false;
+            isGameReload = false;
         }
-    }
-
-    private static void printText(int[] result) {
-        StringBuilder sb = new StringBuilder();
-
-        if (result[0] != 0) {
-            sb.append(result[0]).append("스트라이크 ");
-        }
-        if (result[1] != 0) {
-            sb.append(result[1]).append("볼");
-        }
-        if (result[0] == 0 && result[1] == 0) {
-            sb.append("낫싱");
-        }
-
-        System.out.println(sb);
     }
 
     // 컴퓨터 번호
@@ -93,8 +75,7 @@ public class Application {
     }
 
     // 번호 매칭
-    private static int[] getNumberMatchCount(int[] userNumbers) {
-        int[] result = new int[2];
+    private static GameResult getNumberMatchCount(int[] userNumbers) {
         int ball = 0, strike = 0;
 
         for (int i = 0; i < 3; i++) {
@@ -112,12 +93,37 @@ public class Application {
             }
         }
 
-        result[0] = strike;
-        result[1] = ball;
-
-        //        return ball == 0 && strike == 0 ? "낫싱" : sb.toString();
-
-        return result;
+        return new GameResult(strike, ball);
     }
 
 }
+
+class GameResult {
+    private final int strikes;
+    private final int balls;
+
+    public GameResult(int strikes, int balls) {
+        this.strikes = strikes;
+        this.balls = balls;
+    }
+
+    public boolean isThreeStrikes() {
+        return strikes == 3;
+    }
+
+    @Override
+    public String toString() {
+        if (strikes == 0 && balls == 0) {
+            return "낫싱";
+        }
+        StringBuilder sb = new StringBuilder();
+        if (strikes > 0) {
+            sb.append(strikes).append("스트라이크 ");
+        }
+        if (balls > 0) {
+            sb.append(balls).append("볼");
+        }
+        return sb.toString();
+    }
+}
+
