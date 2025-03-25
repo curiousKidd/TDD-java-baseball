@@ -1,10 +1,6 @@
 package baseball;
 
 import nextstep.utils.Console;
-import nextstep.utils.Randoms;
-
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class Application {
 
@@ -82,55 +78,5 @@ public class Application {
             }
         }
         return new GameResult(strike, ball);
-    }
-}
-
-class GameResult {
-    private final int strikes;
-    private final int balls;
-
-    public GameResult(int strikes, int balls) {
-        this.strikes = strikes;
-        this.balls = balls;
-    }
-
-    public boolean isThreeStrikes() {
-        return strikes == 3;
-    }
-
-    @Override
-    public String toString() {
-        if (strikes == 0 && balls == 0) {
-            return "낫싱";
-        }
-        StringBuilder sb = new StringBuilder();
-        if (strikes > 0) {
-            sb.append(strikes).append("스트라이크 ");
-        }
-        if (balls > 0) {
-            sb.append(balls).append("볼");
-        }
-        return sb.toString().trim();
-    }
-}
-
-// 컴퓨터 번호 부분 객체화
-class ComputerNumber {
-    private final Integer[] numbers;
-
-    public ComputerNumber() {
-        this.numbers = generateNumbers();
-    }
-
-    private Integer[] generateNumbers() {
-        Set<Integer> set = new LinkedHashSet<>(3);
-        while (set.size() < 3) {
-            set.add(Randoms.pickNumberInRange(1, 9));
-        }
-        return set.toArray(new Integer[3]);
-    }
-
-    public Integer[] getNumbers() {
-        return numbers.clone(); // 외부에서 수정되지 않도록 방어적 복사
     }
 }
