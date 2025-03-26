@@ -14,9 +14,9 @@ public class ComputerNumber {
     }
 
     private Integer[] generateNumbers() {
-        Set<Integer> set = new LinkedHashSet<>(3);
+        Set<Number> set = new LinkedHashSet<>(3);
         while (set.size() < 3) {
-            set.add(Randoms.pickNumberInRange(1, 9));
+            set.add(Number.createNumber(Randoms.pickNumberInRange(1, 9)));
         }
         return set.toArray(new Integer[3]);
     }
