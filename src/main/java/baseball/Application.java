@@ -1,5 +1,8 @@
 package baseball;
 
+import baseball.DTO.ComputerNumber;
+import baseball.DTO.GameResult;
+import baseball.DTO.Number;
 import nextstep.utils.Console;
 
 public class Application {
@@ -20,7 +23,7 @@ public class Application {
         while (true) {
             // 사용자 숫자 입력
             int[] userNumbers = setUserWriteNumber();
-
+ 
             // 유저 숫자, 컴퓨터 숫자 비교 및 카운팅
             GameResult gameResult = getNumberMatchCount(userNumbers, computerNumber);
 
@@ -63,15 +66,15 @@ public class Application {
     // 번호 매칭
     private static GameResult getNumberMatchCount(int[] userNumbers, ComputerNumber computerNumber) {
         int ball = 0, strike = 0;
-        Integer[] numbers = computerNumber.getNumbers();
+        Number[] numbers = computerNumber.getNumbers();
 
         for (int i = 0; i < 3; i++) {
             int number = userNumbers[i];
             for (int j = 0; j < 3; j++) {
-                if (numbers[j].equals(number) && i == j) {
+                if (numbers[j].getNumber() == number && i == j) {
                     strike++;
                     break;
-                } else if (numbers[j].equals(number)) {
+                } else if (numbers[j].getNumber() == number) {
                     ball++;
                     break;
                 }

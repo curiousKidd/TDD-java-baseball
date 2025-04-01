@@ -1,4 +1,4 @@
-package baseball;
+package baseball.DTO;
 
 public class GameResult {
     private final int strikes;
