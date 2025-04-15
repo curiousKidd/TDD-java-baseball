@@ -3,6 +3,7 @@ package baseball;
 import baseball.DTO.ComputerNumber;
 import baseball.DTO.GameResult;
 import baseball.DTO.Number;
+import baseball.DTO.UserNumber;
 import nextstep.utils.Console;
 
 public class Application {
@@ -22,10 +23,10 @@ public class Application {
     private static void playGame(ComputerNumber computerNumber) {
         while (true) {
             // 사용자 숫자 입력
-            int[] userNumbers = setUserWriteNumber();
- 
+            UserNumber userNumber = setUserNumber();
+
             // 유저 숫자, 컴퓨터 숫자 비교 및 카운팅
-            GameResult gameResult = getNumberMatchCount(userNumbers, computerNumber);
+            GameResult gameResult = getNumberMatchCount(userNumber, computerNumber);
 
             // 결과 출력
             System.out.println(gameResult);
@@ -51,30 +52,26 @@ public class Application {
     }
 
     // 사용자 번호 입력
-    private static int[] setUserWriteNumber() {
+    private static UserNumber setUserNumber() {
         System.out.println("숫자를 입력해주세요");
-        String s = Console.readLine();
+        String userNumbersText = Console.readLine();
 
-        String[] split = s.split("");
-        int[] userNumbers = new int[3];
-        for (int i = 0; i < 3; i++) {
-            userNumbers[i] = Integer.parseInt(split[i]);
-        }
-        return userNumbers;
+        UserNumber userNumber = new UserNumber(userNumbersText);
+        return userNumber;
     }
 
     // 번호 매칭
-    private static GameResult getNumberMatchCount(int[] userNumbers, ComputerNumber computerNumber) {
+    private static GameResult getNumberMatchCount(UserNumber userNumbers, ComputerNumber computerNumber) {
         int ball = 0, strike = 0;
-        Number[] numbers = computerNumber.getNumbers();
-
+        Number[] computerNumberNumbers = computerNumber.getNumbers();
+        Number[] userNumbersNumbers = userNumbers.getNumbers();
         for (int i = 0; i < 3; i++) {
-            int number = userNumbers[i];
+            int number = userNumbersNumbers[i].getNumber();
             for (int j = 0; j < 3; j++) {
-                if (numbers[j].getNumber() == number && i == j) {
+                if (computerNumberNumbers[j].getNumber() == number && i == j) {
                     strike++;
                     break;
-                } else if (numbers[j].getNumber() == number) {
+                } else if (computerNumberNumbers[j].getNumber() == number) {
                     ball++;
                     break;
                 }
