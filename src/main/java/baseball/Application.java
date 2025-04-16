@@ -2,7 +2,6 @@ package baseball;
 
 import baseball.DTO.ComputerNumber;
 import baseball.DTO.GameResult;
-import baseball.DTO.Number;
 import baseball.DTO.UserNumber;
 import nextstep.utils.Console;
 
@@ -56,27 +55,27 @@ public class Application {
         System.out.println("숫자를 입력해주세요");
         String userNumbersText = Console.readLine();
 
-        UserNumber userNumber = new UserNumber(userNumbersText);
-        return userNumber;
+        return new UserNumber(userNumbersText);
     }
 
     // 번호 매칭
-    private static GameResult getNumberMatchCount(UserNumber userNumbers, ComputerNumber computerNumber) {
-        int ball = 0, strike = 0;
-        Number[] computerNumberNumbers = computerNumber.getNumbers();
-        Number[] userNumbersNumbers = userNumbers.getNumbers();
-        for (int i = 0; i < 3; i++) {
-            int number = userNumbersNumbers[i].getNumber();
-            for (int j = 0; j < 3; j++) {
-                if (computerNumberNumbers[j].getNumber() == number && i == j) {
-                    strike++;
-                    break;
-                } else if (computerNumberNumbers[j].getNumber() == number) {
-                    ball++;
-                    break;
-                }
-            }
-        }
-        return new GameResult(strike, ball);
+    private static GameResult getNumberMatchCount(UserNumber userNumber, ComputerNumber computerNumber) {
+        //        int ball = 0, strike = 0;
+        //        Number[] computerNumbers = computerNumber.getNumbers();
+        //        Number[] userNumbers = userNumber.getNumbers();
+        //        for (int i = 0; i < 3; i++) {
+        //            int number = userNumbers[i].getNumber();
+        //            for (int j = 0; j < 3; j++) {
+        //                if (computerNumbers[j].getNumber() == number && i == j) {
+        //                    strike++;
+        //                    break;
+        //                } else if (computerNumberNumbers[j].getNumber() == number) {
+        //                    ball++;
+        //                    break;
+        //                }
+        //            }
+        //        }
+
+        return computerNumber.compare(userNumber);
     }
 }
