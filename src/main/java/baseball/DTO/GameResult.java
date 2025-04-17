@@ -1,29 +1,37 @@
 package baseball.DTO;
 
-public class GameResult {
-    private final int strikes;
-    private final int balls;
+import java.util.List;
 
-    public GameResult(int strikes, int balls) {
-        this.strikes = strikes;
-        this.balls = balls;
+public class GameResult {
+    private final List<NumberMatchType> results;
+
+    public GameResult(List<NumberMatchType> results) {
+        this.results = results;
+    }
+
+    public long strikeCount() {
+        return results.stream().filter(r -> r == NumberMatchType.STRIKE).count();
+    }
+
+    public long ballCount() {
+        return results.stream().filter(r -> r == NumberMatchType.BALL).count();
     }
 
     public boolean isThreeStrikes() {
-        return strikes == 3;
+        return strikeCount() == 3;
     }
 
     @Override
     public String toString() {
-        if (strikes == 0 && balls == 0) {
+        if (strikeCount() == 0 && ballCount() == 0) {
             return "낫싱";
         }
         StringBuilder sb = new StringBuilder();
-        if (strikes > 0) {
-            sb.append(strikes).append("스트라이크 ");
+        if (strikeCount() > 0) {
+            sb.append(strikeCount()).append("스트라이크 ");
         }
-        if (balls > 0) {
-            sb.append(balls).append("볼");
+        if (ballCount() > 0) {
+            sb.append(ballCount()).append("볼");
         }
         return sb.toString().trim();
     }

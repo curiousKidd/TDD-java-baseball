@@ -2,7 +2,9 @@ package baseball.DTO;
 
 import nextstep.utils.Randoms;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 // 컴퓨터 번호 부분 객체화
@@ -22,17 +24,17 @@ public class ComputerNumber {
     }
 
     public GameResult compare(UserNumber user) {
-        int strike = 0, ball = 0;
         Number[] userNumbers = user.getNumbers();
+        List<NumberMatchType> results = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
             if (this.numbers[i].getNumber() == userNumbers[i].getNumber()) {
-                strike++;
+                results.add(NumberMatchType.STRIKE);
             } else if (contains(userNumbers[i])) {
-                ball++;
+                results.add(NumberMatchType.BALL);
             }
         }
-        return new GameResult(strike, ball);
+        return new GameResult(results);
     }
 
     private boolean contains(Number number) {

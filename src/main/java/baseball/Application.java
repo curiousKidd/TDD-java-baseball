@@ -28,7 +28,7 @@ public class Application {
             GameResult gameResult = getNumberMatchCount(userNumber, computerNumber);
 
             // 결과 출력
-            System.out.println(gameResult);
+            System.out.println(gameResult.toString());
 
             // 3스트라이크일 경우 재시작 OR 끝낼것인지 체킹
             if (gameResult.isThreeStrikes()) {
@@ -60,22 +60,6 @@ public class Application {
 
     // 번호 매칭
     private static GameResult getNumberMatchCount(UserNumber userNumber, ComputerNumber computerNumber) {
-        //        int ball = 0, strike = 0;
-        //        Number[] computerNumbers = computerNumber.getNumbers();
-        //        Number[] userNumbers = userNumber.getNumbers();
-        //        for (int i = 0; i < 3; i++) {
-        //            int number = userNumbers[i].getNumber();
-        //            for (int j = 0; j < 3; j++) {
-        //                if (computerNumbers[j].getNumber() == number && i == j) {
-        //                    strike++;
-        //                    break;
-        //                } else if (computerNumberNumbers[j].getNumber() == number) {
-        //                    ball++;
-        //                    break;
-        //                }
-        //            }
-        //        }
-
         return computerNumber.compare(userNumber);
     }
 }

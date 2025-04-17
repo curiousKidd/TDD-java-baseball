@@ -4,5 +4,4 @@ public enum NumberMatchType {
     STRIKE,
     BALL,
     NOTHING
-
 }
