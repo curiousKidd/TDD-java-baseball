@@ -29,7 +29,7 @@ class GameResultTest {
 
     @Test
     @DisplayName("스트라이크가 3개 미만이면 isThreeStrikes()는 false를 반환한다")
-    void 스트라이크_3개_미만_거짓() {
+    void 스트라이크_3개_거짓() {
         // Given (2 strikes, 1 ball)
         GameResult result = new GameResult(
                 Arrays.asList(

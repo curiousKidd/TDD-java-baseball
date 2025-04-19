@@ -19,7 +19,7 @@ public class Application {
     }
 
     // 기존 게임 로직 method 변경
-    private static void playGame(ComputerNumber computerNumber) {
+    public static void playGame(ComputerNumber computerNumber) {
         while (true) {
             // 사용자 숫자 입력
             UserNumber userNumber = setUserNumber();
@@ -38,7 +38,7 @@ public class Application {
         }
     }
 
-    private static void gameReloadOrEnd() {
+    public static void gameReloadOrEnd() {
         System.out.println("게임을 종료하시겠습니까?");
         System.out.println("1 재시작 | 2 종료");
         String endNumber = Console.readLine();
@@ -51,7 +51,7 @@ public class Application {
     }
 
     // 사용자 번호 입력
-    private static UserNumber setUserNumber() {
+    public static UserNumber setUserNumber() {
         System.out.println("숫자를 입력해주세요");
         String userNumbersText = Console.readLine();
 
@@ -59,7 +59,7 @@ public class Application {
     }
 
     // 번호 매칭
-    private static GameResult getNumberMatchCount(UserNumber userNumber, ComputerNumber computerNumber) {
+    public static GameResult getNumberMatchCount(UserNumber userNumber, ComputerNumber computerNumber) {
         return computerNumber.compare(userNumber);
     }
 }
